@@ -36,11 +36,11 @@ namespace Eval.API.Controllers
         
         // POST api/<PasswordController>
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] CreatePasswordDTO createPasswordDto)
+        public async Task<IActionResult> Post([FromBody] CreateAccountDTO createAccountDto)
         {
             try
             {
-                await _passwordService.AddPassword(createPasswordDto);
+                await _passwordService.AddPassword(createAccountDto);
             
                 var response = new
                 {

@@ -19,7 +19,7 @@ public class PasswordService : IPasswordService
         _applicationRepository = applicationRepository;
     }
     
-    public async Task<List<GetPasswordDTO>> GetPasswords()
+    public async Task<List<GetAccountDTO>> GetPasswords()
     {
         EncryptionContext encryptionContext;
         var passwords = await _passwordRepository.GetPasswords();
@@ -39,10 +39,11 @@ public class PasswordService : IPasswordService
             }
             pa.Password = encryptionContext.Decrypt(pa.Password); 
         });
-        return passwords.Select(p => new GetPasswordDTO
+        return passwords.Select(p => new GetAccountDTO
         {
-            IdPassword = p.IdAccount,
-            Value = p.Password,
+            IdAccount = p.IdAccount,
+            Name = p.Name,
+            Password = p.Password,
             IdApplication = p.IdApplication,
             Application = new GetApplicationDTO
             {
@@ -58,9 +59,9 @@ public class PasswordService : IPasswordService
         }).ToList();
     }
 
-    public async Task AddPassword(CreatePasswordDTO createPassword)
+    public async Task AddPassword(CreateAccountDTO createAccount)
     {
-        var application = await _applicationRepository.GetApplication(createPassword.IdApplication);
+        var application = await _applicationRepository.GetApplication(createAccount.IdApplication);
         EncryptionContext encryptionContext;
         if (application.IdApplicationType == 1)
         {
@@ -78,8 +79,9 @@ public class PasswordService : IPasswordService
         
         var newPassword = new Account
         {
-            Password = encryptionContext.Encrypt(createPassword.Value),
-            IdApplication = createPassword.IdApplication,
+            Name = createAccount.Name,
+            Password = encryptionContext.Encrypt(createAccount.Password),
+            IdApplication = createAccount.IdApplication,
         };
         
         await _passwordRepository.AddPassword(newPassword);

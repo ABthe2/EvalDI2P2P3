@@ -4,7 +4,7 @@ namespace Eval.Business.Services.Interfaces;
 
 public interface IPasswordService
 {
-    Task<List<GetPasswordDTO>> GetPasswords();
-    Task AddPassword(CreatePasswordDTO createPassword);
+    Task<List<GetAccountDTO>> GetPasswords();
+    Task AddPassword(CreateAccountDTO createAccount);
     Task DeletePassword(int idPassword);
 }

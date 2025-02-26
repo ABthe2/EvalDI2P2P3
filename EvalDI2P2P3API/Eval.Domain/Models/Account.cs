@@ -10,6 +10,9 @@ public class Account
     public int IdAccount { get; set; }
     
     [Required]
+    public string Name { get; set; }
+    
+    [Required]
     public string Password { get; set; }
     
     [Required]
