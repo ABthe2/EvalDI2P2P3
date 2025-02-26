@@ -1,0 +1,7 @@
+.application-form {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 30px;
+  margin-top: 15px;
+}
