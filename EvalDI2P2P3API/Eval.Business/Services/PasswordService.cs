@@ -25,11 +25,11 @@ public class PasswordService : IPasswordService
         var passwords = await _passwordRepository.GetPasswords();
         passwords.ForEach(pa =>
         {
-            if (pa.IdApplication == 1)
+            if (pa.Application.IdApplicationType == 1)
             {
                 encryptionContext = new EncryptionContext(new AESUtils());
             }
-            else if (pa.IdApplication == 2)
+            else if (pa.Application.IdApplicationType == 2)
             {
                 encryptionContext = new EncryptionContext(new RSAUtils());
             }
